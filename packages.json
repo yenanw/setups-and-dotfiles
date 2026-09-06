@@ -97,6 +97,11 @@
   },
   "dotfiles": [
     {
+      "name": "git",
+      "source": "dotfiles/git/.gitconfig",
+      "target": ".gitconfig"
+    },
+    {
       "name": "tmux",
       "source": "dotfiles/tmux/tmux.conf",
       "target": ".config/tmux/tmux.conf"

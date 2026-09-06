@@ -18,6 +18,8 @@
 
 # Managed configuration
 !dotfiles/
+!dotfiles/git/
+!dotfiles/git/.gitconfig
 !dotfiles/tmux/
 !dotfiles/tmux/tmux.conf
 !dotfiles/vim/
