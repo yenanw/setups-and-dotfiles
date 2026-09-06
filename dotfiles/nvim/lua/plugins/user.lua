@@ -1,6 +1,12 @@
 return {
   {
-    "williamboman/mason.nvim",
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
+    },
+  },
+  {
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "stylua",

@@ -1,6 +1,8 @@
 [user]
     name = yenanw
     email = 54945977+yenanw@users.noreply.github.com
+    # remember to change this if public key is changed
+    signingkey = ~/.ssh/id_ed25519_asus.pub
 
 [init]
     defaultBranch = main
@@ -11,6 +13,12 @@
 
 [color]
     ui = auto
+
+[commit]
+    gpgsign = true
+
+[tag]
+    gpgSign = true
 
 [push]
     default = simple
@@ -45,3 +53,6 @@
 [credential "https://gist.github.com"]
     helper =
     helper = !/usr/bin/gh auth git-credential
+
+[gpg]
+    format = ssh
