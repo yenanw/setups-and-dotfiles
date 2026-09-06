@@ -25,6 +25,7 @@
 !dotfiles/vim/
 !dotfiles/vim/.vimrc
 !dotfiles/code/
+!dotfiles/code/README.md
 !dotfiles/code/settings.json
 !dotfiles/alacritty/
 !dotfiles/alacritty/alacritty.toml

@@ -13,5 +13,7 @@
     "chat.editor.fontSize": 14,
     "editor.fontSize": 15,
     "editor.minimap.enabled": false,
-    "files.eol": "\r\n"
+    "files.eol": "\n",
+    "latex-workshop.formatting.latex": "latexindent",
+    "latex-workshop.latex.outDir": "%DIR%/build"
 }
