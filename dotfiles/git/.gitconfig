@@ -46,6 +46,9 @@
     ci = commit
     lg = log --graph --decorate --oneline --all
 
+[credential]
+    helper = store
+
 [credential "https://github.com"]
     helper =
     helper = !/usr/bin/gh auth git-credential
