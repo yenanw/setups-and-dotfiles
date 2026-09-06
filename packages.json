@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "platform": {
+    "distribution": "fedora",
+    "minimum_version": 40
+  },
+  "profiles": {
+    "required": {
+      "dnf": [
+        "ca-certificates",
+        "curl",
+        "dnf-plugins-core",
+        "git",
+        "jq",
+        "tmux",
+        "vim-enhanced",
+        "neovim",
+        "python3",
+        "python3-pip",
+        "python-unversioned-command",
+        "alacritty",
+        "rust",
+        "cargo",
+        "gcc",
+        "gcc-c++",
+        "make",
+        "fontconfig",
+        "flatpak",
+        "xz"
+      ],
+      "repository_packages": [
+        "code"
+      ]
+    },
+    "optional": {
+      "dnf": [
+        "ripgrep",
+        "fd-find",
+        "fzf",
+        "xclip",
+        "uv",
+        "zsh",
+        "zoxide",
+        "gh",
+        "perl",
+        "pkgconf-pkg-config",
+        "dbus-devel",
+        "libsmbclient-devel",
+        "libsmbclient",
+        "openssl-devel",
+        "texlive-scheme-full"
+      ],
+      "repository_packages": [
+        "lazygit",
+        "yazi",
+        "tailscale"
+      ],
+      "cargo": [
+        {
+          "crate": "termscp",
+          "binary": "termscp",
+          "locked": true
+        }
+      ]
+    }
+  },
+  "repositories": {
+    "vscode": {
+      "key_url": "https://packages.microsoft.com/keys/microsoft.asc",
+      "base_url": "https://packages.microsoft.com/yumrepos/vscode"
+    },
+    "tailscale": {
+      "repo_url": "https://pkgs.tailscale.com/stable/fedora/tailscale.repo"
+    },
+    "copr": [
+      "dejan/lazygit",
+      "lihaohong/yazi"
+    ],
+    "rpm_fusion": {
+      "free_release_url": "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%s.noarch.rpm",
+      "nonfree_release_url": "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%s.noarch.rpm"
+    },
+    "flathub": {
+      "remote_url": "https://dl.flathub.org/repo/flathub.flatpakrepo"
+    }
+  },
+  "downloads": {
+    "oh_my_zsh": {
+      "git_url": "https://github.com/ohmyzsh/ohmyzsh.git",
+      "branch": "master"
+    },
+    "fira_code_nerd_font": {
+      "version": "3.5.1",
+      "archive_url": "https://github.com/ryanoasis/nerd-fonts/releases/download/v%s/FiraCode.tar.xz",
+      "checksums_url": "https://github.com/ryanoasis/nerd-fonts/releases/download/v%s/SHA-256.txt"
+    }
+  },
+  "dotfiles": [
+    {
+      "name": "tmux",
+      "source": "dotfiles/tmux/tmux.conf",
+      "target": ".config/tmux/tmux.conf"
+    },
+    {
+      "name": "vim",
+      "source": "dotfiles/vim/.vimrc",
+      "target": ".vimrc"
+    },
+    {
+      "name": "neovim",
+      "source": "dotfiles/nvim",
+      "target": ".config/nvim"
+    },
+    {
+      "name": "Visual Studio Code",
+      "source": "dotfiles/code/settings.json",
+      "target": ".config/Code/User/settings.json"
+    },
+    {
+      "name": "Alacritty",
+      "source": "dotfiles/alacritty",
+      "target": ".config/alacritty"
+    },
+    {
+      "name": "Zsh",
+      "source": "dotfiles/zsh/.zshrc",
+      "target": ".zshrc"
+    }
+  ]
+}

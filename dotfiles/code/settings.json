@@ -1,0 +1,16 @@
+{
+    "keyboard.dispatch": "keyCode",
+    "editor.formatOnSave": true,
+    "editor.fontFamily": "'FiraCode Nerd Font Mono', 'Droid Sans Mono', monospace",
+    "editor.wordWrap": "on",
+    "editor.tabCompletion": "on",
+    "editor.fontLigatures": true,
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "chat.fontSize": 14,
+    "chat.editor.fontSize": 14,
+    "editor.fontSize": 15,
+    "editor.minimap.enabled": false
+}

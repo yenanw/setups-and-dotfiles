@@ -1,0 +1,46 @@
+# Ignore-first allow-list: only repository source files are included.
+**/*
+
+# Root files
+!.gitignore
+!install.sh
+!packages.json
+!README.md
+
+# Helper scripts and their documentation
+!scripts/
+!scripts/README.md
+!scripts/setup-repositories.sh
+!scripts/install-rust-tools.sh
+!scripts/install-oh-my-zsh.sh
+!scripts/install-fonts.sh
+!scripts/link-dotfiles.sh
+
+# Managed configuration
+!dotfiles/
+!dotfiles/tmux/
+!dotfiles/tmux/tmux.conf
+!dotfiles/vim/
+!dotfiles/vim/.vimrc
+!dotfiles/code/
+!dotfiles/code/settings.json
+!dotfiles/alacritty/
+!dotfiles/alacritty/alacritty.toml
+!dotfiles/alacritty/themes/
+!dotfiles/alacritty/themes/ganbaru_matcha.toml
+!dotfiles/zsh/
+!dotfiles/zsh/.zshrc
+!dotfiles/nvim/
+!dotfiles/nvim/init.lua
+!dotfiles/nvim/lazy-lock.json
+!dotfiles/nvim/lazyvim.json
+!dotfiles/nvim/.neoconf.json
+!dotfiles/nvim/stylua.toml
+!dotfiles/nvim/lua/
+!dotfiles/nvim/lua/config/
+!dotfiles/nvim/lua/config/autocmds.lua
+!dotfiles/nvim/lua/config/keymaps.lua
+!dotfiles/nvim/lua/config/lazy.lua
+!dotfiles/nvim/lua/config/options.lua
+!dotfiles/nvim/lua/plugins/
+!dotfiles/nvim/lua/plugins/user.lua

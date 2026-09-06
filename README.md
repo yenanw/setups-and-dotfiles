@@ -1,78 +1,96 @@
 # Setups and Dotfiles
 
-Personal repository for my commonly used tools and my configurations for them.
+Personal repository for the tools and configurations I commonly use.
 
-All scripts in this repository assume you have a [Fedora Linux](https://fedoraproject.org/)
-distro installed, e.g., Fedora 44 or something modern.
+The scripts target Fedora Workstation 40 or newer and are currently maintained
+on Fedora 44. Run the installer as a normal user with `sudo` access:
 
-## Structure
+```bash
+./install.sh
+```
+
+The default installation includes every tool below, including TeX Live and
+Tailscale. It can therefore download several gigabytes.
+
+## Installer options
+
+- `--no-optional` installs only the required toolchain.
+- `--no-config` skips dotfile symlinks, the config-only font asset, and the
+  login-shell change.
+- `--dry-run` prints the work without changing the machine.
+- `--help` displays the command summary.
+
+Options may be combined, for example:
+
+```bash
+./install.sh --no-optional --no-config
+```
+
+The installer is idempotent: package-manager operations can be repeated, tools
+that are already present are skipped where appropriate, and an existing config
+is never discarded. Before replacing a config path, `link-dotfiles.sh` moves it
+under `~/.local/state/setups-and-dotfiles/backups/<timestamp>/`.
+
+## Repository structure
 
 ### `install.sh`
 
-The main install script. When run without any argument provided, it will
-install and set up configuration files (if present) for all tools and packages
-listed below, including the optional ones.
-
-Arguments:
-
-- `--no-optional` - install only the must-have tools
-- `--no-config` - do not copy over configuration files from the `dotfiles/`
-                  folder
+The entry point. It validates Fedora, bootstraps `jq`, reads `packages.json`,
+installs the selected packages, invokes focused helper scripts, and links the
+dotfiles.
 
 ### `packages.json`
 
+The machine-readable inventory of Fedora packages, external repositories,
+Cargo applications, verified downloads, and dotfile mappings. Package names are
+the actual Fedora names (for example, `vim-enhanced` provides Vim, `fd-find`
+provides `fd`, and `python-unversioned-command` provides `python`).
+
 ### `dotfiles/`
+
+Tracked configurations for tmux, Vim, Neovim/LazyVim, VS Code, Alacritty, and
+Zsh. The installer creates absolute symlinks from their standard locations to
+these files.
 
 ### `scripts/`
 
-## Installed tools/dependencies descriptions
+Small helpers for repositories, Cargo tools, Oh My Zsh, fonts, and dotfile
+linking. See `scripts/README.md`.
 
-### CLI tools/applications
+## Installed tools and dependencies
 
-Ensure the following are **ALWAYS** installed:
+### Required
 
-- git
-- tmux - kinda must have for working with more complex projects
-- jq - JSON processing, also because `install.sh` depends on it
+- CLI tools: Git, tmux, and `jq`.
+- Editors and applications: Vim, Neovim with LazyVim, Visual Studio Code,
+  Python, and Alacritty.
+- Build/bootstrap tools: Rust, Cargo, GCC/G++, Make, cURL, CA certificates,
+  `pip`, Flatpak, and Fedora's DNF plugins.
 
-Good to haves:
+### Optional (installed by default)
 
-- ripgrep - for searching source trees
-- fd - nicer `find`
-- fzf - fuzzy finder
-- termscp - nice TUI for file tranfers between local and remote
-- lazygit - fantastic TUI for git
-- yazi - terminal file manager
-- xclip - clipboard tool
+- CLI conveniences: ripgrep, `fd`, `fzf`, Termscp, Lazygit, Yazi, `xclip`,
+  `zoxide`, and GitHub CLI.
+- Development conveniences: `uv`, Zsh, Oh My Zsh, and the FiraCode Nerd Font
+  used by Alacritty, VS Code, and LazyVim.
+- Task-specific tools: Tailscale and the full Fedora TeX Live scheme.
 
-### Development environments
+LazyVim bootstraps its plugins on the first Neovim launch. Run `:LazyHealth`
+after that first launch. Tailscale's service is enabled by the installer, but
+device authentication remains explicit; run `sudo tailscale up` when ready.
 
-Base tools (must have):
+## Fedora-specific details
 
-- vim - for very light editing
-- neovim - for heavier editing when I don't want GUI
-- code - VSCode for main development
-- python - my main development programming language
-- alacritty - my choice of terminal simulator
+The installer configures the following sources only when they are needed:
 
-Useful tools for aesthetics or convenience:
+- Microsoft's signed RPM repository for Visual Studio Code.
+- RPM Fusion free and nonfree plus a per-user Flathub remote during the optional
+  installation.
+- Tailscale's stable Fedora repository.
+- The `dejan/lazygit` and `lihaohong/yazi` Fedora COPRs recommended in those
+  projects' Fedora installation instructions.
 
-- uv - Python package manager
-- zsh - more customizable than bash
-- oh-my-zsh - must-have if zsh is used
-- LazyVim - easy and very reasonable neovim default setup + very customizable
-
-Optional, only needed for specific tasks:
-
-- tailscale - requied if need to SSH between laptops (my setup is unfortunately
-              rather scuffed)
-
-Also, for writing papers locally, [Tex Live](https://www.tug.org/texlive/) need
-to be installed.
-
-## Fedora Linux nuances
-
-1. Remembeer to enable the [RPM Fusion](https://rpmfusion.org/) packages.
-2. If you somehow missed it, set up [Flathub here](https://flathub.org/en/setup/Fedora).
-3. To install `termscp` on Fedora, you need the a lot of libraries from Perl
-   standard library. So it is easiest to install the `perl.core` package first.
+Termscp is built with Cargo. Its Fedora build/runtime dependencies include
+Perl, D-Bus, `pkg-config`, OpenSSL, and Samba client libraries; these are listed
+explicitly in `packages.json`. Fedora 44 no longer provides a package named
+`perl-core`, so the `perl` package is used instead.
