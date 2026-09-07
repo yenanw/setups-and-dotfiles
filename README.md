@@ -15,8 +15,8 @@ Tailscale. It can therefore download several gigabytes.
 ## Installer options
 
 - `--no-optional` installs only the required toolchain.
-- `--no-config` skips dotfile symlinks, the config-only font asset, and the
-  login-shell change.
+- `--no-config` skips Stow-managed dotfile symlinks, the config-only font
+  asset, and the login-shell change.
 - `--dry-run` prints the work without changing the machine.
 - `--help` displays the command summary.
 
@@ -28,8 +28,10 @@ Options may be combined, for example:
 
 The installer is idempotent: package-manager operations can be repeated, tools
 that are already present are skipped where appropriate, and an existing config
-is never discarded. Before replacing a config path, `link-dotfiles.sh` moves it
-under `~/.local/state/setups-and-dotfiles/backups/<timestamp>/`.
+is never discarded. Before Stow takes ownership of a config path,
+`stow-dotfiles.sh` moves any conflict under
+`~/.local/state/setups-and-dotfiles/backups/<timestamp>/`. If Stow rejects the
+operation, the wrapper restores the conflicts automatically.
 
 ## Repository structure
 
@@ -42,26 +44,29 @@ dotfiles.
 ### `packages.json`
 
 The machine-readable inventory of Fedora packages, external repositories,
-Cargo applications, verified downloads, and dotfile mappings. Package names are
+Cargo applications, verified downloads, and Stow packages. Package names are
 the actual Fedora names (for example, `vim-enhanced` provides Vim, `fd-find`
 provides `fd`, and `python-unversioned-command` provides `python`).
 
 ### `dotfiles/`
 
-Tracked configurations for Git, tmux, Vim, Neovim/LazyVim, VS Code, Alacritty,
-Yazi, and Zsh. The installer creates absolute symlinks from their standard
-locations to these files.
+Each immediate child is a GNU Stow package for Git, tmux, Vim,
+Neovim/LazyVim, VS Code, Alacritty, Yazi, or Zsh. Inside each package, paths
+mirror their destination relative to the home directory. For example,
+`alacritty/.config/alacritty/alacritty.toml` maps to
+`~/.config/alacritty/alacritty.toml`, while `git/.gitconfig` maps to
+`~/.gitconfig`.
 
 ### `scripts/`
 
-Small helpers for repositories, Cargo tools, Oh My Zsh, fonts, and dotfile
-linking. See `scripts/README.md`.
+Small helpers for repositories, Cargo tools, Oh My Zsh, fonts, and Stow-based
+dotfile management. See `scripts/README.md`.
 
 ## Installed tools and dependencies
 
 ### Required
 
-- CLI tools: Git, tmux, and `jq`.
+- CLI tools: Git, tmux, `jq`, and GNU Stow.
 - Editors and applications: Vim, Neovim with LazyVim, Visual Studio Code,
   Python, and Alacritty.
 - Build/bootstrap tools: Rust, Cargo, GCC/G++, Make, cURL, CA certificates,

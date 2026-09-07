@@ -8,4 +8,4 @@ Each accepts `--dry-run`; `setup-repositories.sh` additionally accepts
 - `install-rust-tools.sh` installs Cargo-managed applications.
 - `install-oh-my-zsh.sh` installs Oh My Zsh without executing a remote script.
 - `install-fonts.sh` installs and verifies the font required by the configs.
-- `link-dotfiles.sh` backs up conflicts and creates the managed symlinks.
+- `stow-dotfiles.sh` backs up conflicts and lets GNU Stow manage the symlinks.

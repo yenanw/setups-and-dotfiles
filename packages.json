@@ -12,6 +12,7 @@
         "dnf-plugins-core",
         "git",
         "jq",
+        "stow",
         "tmux",
         "vim-enhanced",
         "neovim",
@@ -95,46 +96,42 @@
       "checksums_url": "https://github.com/ryanoasis/nerd-fonts/releases/download/v%s/SHA-256.txt"
     }
   },
-  "dotfiles": [
-    {
-      "name": "git",
-      "source": "dotfiles/git/.gitconfig",
-      "target": ".gitconfig"
-    },
-    {
-      "name": "tmux",
-      "source": "dotfiles/tmux/tmux.conf",
-      "target": ".config/tmux/tmux.conf"
-    },
-    {
-      "name": "vim",
-      "source": "dotfiles/vim/.vimrc",
-      "target": ".vimrc"
-    },
-    {
-      "name": "neovim",
-      "source": "dotfiles/nvim",
-      "target": ".config/nvim"
-    },
-    {
-      "name": "Visual Studio Code",
-      "source": "dotfiles/code/settings.json",
-      "target": ".config/Code/User/settings.json"
-    },
-    {
-      "name": "Alacritty",
-      "source": "dotfiles/alacritty",
-      "target": ".config/alacritty"
-    },
-    {
-      "name": "Yazi",
-      "source": "dotfiles/yazi",
-      "target": ".config/yazi"
-    },
-    {
-      "name": "Zsh",
-      "source": "dotfiles/zsh/.zshrc",
-      "target": ".zshrc"
-    }
-  ]
+  "stow": {
+    "directory": "dotfiles",
+    "target": "$HOME",
+    "packages": [
+      {
+        "name": "git",
+        "target": ".gitconfig"
+      },
+      {
+        "name": "tmux",
+        "target": ".config/tmux"
+      },
+      {
+        "name": "vim",
+        "target": ".vimrc"
+      },
+      {
+        "name": "nvim",
+        "target": ".config/nvim"
+      },
+      {
+        "name": "code",
+        "target": ".config/Code/User/settings.json"
+      },
+      {
+        "name": "alacritty",
+        "target": ".config/alacritty"
+      },
+      {
+        "name": "yazi",
+        "target": ".config/yazi"
+      },
+      {
+        "name": "zsh",
+        "target": ".zshrc"
+      }
+    ]
+  }
 }

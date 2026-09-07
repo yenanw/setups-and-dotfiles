@@ -93,7 +93,9 @@ jq -e '
   (.profiles.optional.dnf | type == "array") and
   (.profiles.optional.repository_packages | type == "array") and
   (.profiles.optional.cargo | type == "array") and
-  (.dotfiles | type == "array")
+  (.stow.directory | type == "string") and
+  .stow.target == "$HOME" and
+  (.stow.packages | type == "array")
 ' "$MANIFEST" >/dev/null || die "packages.json does not match schema version 1"
 
 mapfile -t required_packages < <(jq -er '.profiles.required.dnf[]' "$MANIFEST")
@@ -153,9 +155,9 @@ if "$INSTALL_CONFIG"; then
   "$DRY_RUN" && font_args+=(--dry-run)
   "$REPO_ROOT/scripts/install-fonts.sh" "${font_args[@]}"
 
-  link_args=()
-  "$DRY_RUN" && link_args+=(--dry-run)
-  "$REPO_ROOT/scripts/link-dotfiles.sh" "${link_args[@]}"
+  stow_args=()
+  "$DRY_RUN" && stow_args+=(--dry-run)
+  "$REPO_ROOT/scripts/stow-dotfiles.sh" "${stow_args[@]}"
 fi
 
 log "Setup complete"
