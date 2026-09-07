@@ -127,6 +127,11 @@
       "target": ".config/alacritty"
     },
     {
+      "name": "Yazi",
+      "source": "dotfiles/yazi",
+      "target": ".config/yazi"
+    },
+    {
       "name": "Zsh",
       "source": "dotfiles/zsh/.zshrc",
       "target": ".zshrc"

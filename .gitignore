@@ -31,6 +31,8 @@
 !dotfiles/alacritty/alacritty.toml
 !dotfiles/alacritty/themes/
 !dotfiles/alacritty/themes/ganbaru_matcha.toml
+!dotfiles/yazi/
+!dotfiles/yazi/yazi.toml
 !dotfiles/zsh/
 !dotfiles/zsh/.zshrc
 !dotfiles/nvim/

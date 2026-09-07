@@ -49,8 +49,8 @@ provides `fd`, and `python-unversioned-command` provides `python`).
 ### `dotfiles/`
 
 Tracked configurations for Git, tmux, Vim, Neovim/LazyVim, VS Code, Alacritty,
-and Zsh. The installer creates absolute symlinks from their standard locations
-to these files.
+Yazi, and Zsh. The installer creates absolute symlinks from their standard
+locations to these files.
 
 ### `scripts/`
 

@@ -1,0 +1,35 @@
+[mgr]
+ratio = [1, 4, 3]
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+linemode = "size"
+show_hidden = false
+show_symlink = true
+scrolloff = 5
+
+[opener]
+edit = [{ run = "nvim %s", block = true, desc = "Neovim", for = "unix" }]
+
+[open]
+prepend_rules = [
+    { mime = "text/*", use = "edit" },
+
+    # Common text-ish files that aren't always detected as text/*
+    { url = "*.json", use = "edit" },
+    { url = "*.jsonc", use = "edit" },
+    { url = "*.toml", use = "edit" },
+    { url = "*.yaml", use = "edit" },
+    { url = "*.yml", use = "edit" },
+    { url = "*.xml", use = "edit" },
+    { url = "*.md", use = "edit" },
+    { url = "*.conf", use = "edit" },
+    { url = "*.ini", use = "edit" },
+]
+
+[tasks]
+suppress_preload = false
+
+[input]
+cursor_blink = true
