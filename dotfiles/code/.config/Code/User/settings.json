@@ -9,9 +9,9 @@
         80,
         120
     ],
-    "chat.fontSize": 14,
-    "chat.editor.fontSize": 14,
-    "editor.fontSize": 15,
+    "chat.fontSize": 15,
+    "chat.editor.fontSize": 15,
+    "editor.fontSize": 16,
     "editor.minimap.enabled": false,
     "files.eol": "\n",
     "latex-workshop.formatting.latex": "latexindent",

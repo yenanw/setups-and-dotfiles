@@ -31,6 +31,7 @@
 !dotfiles/code/.config/
 !dotfiles/code/.config/Code/
 !dotfiles/code/.config/Code/User/
+!dotfiles/code/.config/Code/User/keybindings.json
 !dotfiles/code/.config/Code/User/settings.json
 !dotfiles/alacritty/
 !dotfiles/alacritty/.config/

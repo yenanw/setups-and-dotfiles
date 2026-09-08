@@ -102,35 +102,52 @@
     "packages": [
       {
         "name": "git",
-        "target": ".gitconfig"
+        "targets": [
+          ".gitconfig"
+        ]
       },
       {
         "name": "tmux",
-        "target": ".config/tmux"
+        "targets": [
+          ".config/tmux"
+        ]
       },
       {
         "name": "vim",
-        "target": ".vimrc"
+        "targets": [
+          ".vimrc"
+        ]
       },
       {
         "name": "nvim",
-        "target": ".config/nvim"
+        "targets": [
+          ".config/nvim"
+        ]
       },
       {
         "name": "code",
-        "target": ".config/Code/User/settings.json"
+        "targets": [
+          ".config/Code/User/settings.json",
+          ".config/Code/User/keybindings.json"
+        ]
       },
       {
         "name": "alacritty",
-        "target": ".config/alacritty"
+        "targets": [
+          ".config/alacritty"
+        ]
       },
       {
         "name": "yazi",
-        "target": ".config/yazi"
+        "targets": [
+          ".config/yazi"
+        ]
       },
       {
         "name": "zsh",
-        "target": ".zshrc"
+        "targets": [
+          ".zshrc"
+        ]
       }
     ]
   }

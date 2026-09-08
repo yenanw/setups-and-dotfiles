@@ -18,7 +18,11 @@ esac
 command -v jq >/dev/null || { printf 'jq is required\n' >&2; exit 1; }
 command -v stow >/dev/null || { printf 'GNU Stow is required\n' >&2; exit 1; }
 
-jq -e '.stow.target == "$HOME" and (.stow.packages | type == "array" and length > 0)' "$MANIFEST" >/dev/null || {
+jq -e '
+  .stow.target == "$HOME" and
+  (.stow.packages | type == "array" and length > 0) and
+  all(.stow.packages[]; (.name | type == "string") and (.targets | type == "array" and length > 0))
+' "$MANIFEST" >/dev/null || {
   printf 'Invalid Stow configuration in packages.json\n' >&2
   exit 1
 }
@@ -32,6 +36,7 @@ target_destination() {
 }
 
 declare -a packages=()
+declare -a stow_packages=()
 declare -a targets=()
 declare -a sources=()
 declare -a moved_targets=()
@@ -51,6 +56,8 @@ restore_backups() {
   done
 }
 
+mapfile -t stow_packages < <(jq -er '.stow.packages[].name' "$MANIFEST")
+
 while IFS=$'\t' read -r package target_relative; do
   [[ $package =~ ^[a-zA-Z0-9][a-zA-Z0-9+_.-]*$ ]] || { printf 'Unsafe Stow package: %s\n' "$package" >&2; exit 1; }
   if [[ -z $target_relative || $target_relative == /* || $target_relative == .. || $target_relative == ../* || $target_relative == */../* || $target_relative == */.. ]]; then
@@ -66,7 +73,7 @@ while IFS=$'\t' read -r package target_relative; do
   packages+=("$package")
   targets+=("$target_relative")
   sources+=("$source_path")
-done < <(jq -er '.stow.packages[] | [.name, .target] | @tsv' "$MANIFEST")
+done < <(jq -er '.stow.packages[] as $package | $package.targets[] | [$package.name, .] | @tsv' "$MANIFEST")
 
 had_conflicts=false
 for index in "${!packages[@]}"; do
@@ -100,7 +107,7 @@ for index in "${!packages[@]}"; do
   fi
 done
 
-stow_command=(stow --dir "$STOW_DIR" --target "$HOME" --restow "${packages[@]}")
+stow_command=(stow --dir "$STOW_DIR" --target "$HOME" --restow "${stow_packages[@]}")
 if "$DRY_RUN" && "$had_conflicts"; then
   printf '[dry-run]'
   printf ' %q' "${stow_command[@]}"
@@ -122,5 +129,5 @@ if ! "$DRY_RUN"; then
       exit 1
     fi
   done
-  printf '[setup] Stowed %s\n' "${packages[*]}"
+  printf '[setup] Stowed %s\n' "${stow_packages[*]}"
 fi
